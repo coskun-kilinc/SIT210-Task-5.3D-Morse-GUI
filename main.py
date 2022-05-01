@@ -6,6 +6,8 @@ import String_To_Morse
 import Morse_To_Blink
 import RPi.GPIO as GPIO
 
+DEBUG = FALSE
+
 LED = 7
 
 
@@ -33,8 +35,9 @@ class Application(tk.Frame):
     def textToMorseConvert(self):
         stringLike = self.stringToMorse.get()
         morseCode = String_To_Morse.ConvertToMorse(stringLike)
-        Morse_To_Blink.ConvertToBlink(morseCode, LED, 0.5)
-        print(morseCode)
+        if DEBUG: print(morseCode)
+        Morse_To_Blink.ConvertToBlink(morseCode, 0.5)
+        
 
     def create_widgets(self):
         std_font = tkinter.font.Font(family= 'Helvetica', size = 12)
