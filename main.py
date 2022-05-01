@@ -6,9 +6,9 @@ import String_To_Morse
 import Morse_To_Blink
 import RPi.GPIO as GPIO
 
-DEBUG = FALSE
+DEBUG = True
 
-LED = 7
+
 
 
 class Application(tk.Frame):
@@ -20,9 +20,6 @@ class Application(tk.Frame):
         self.master.title('SIT210-Task5.3D-RPiGUI')
         self.pack()
         self.stringToMorse = tk.StringVar()
-        #self.img = ImageTk.PhotoImage(Image.open('LED_traffic_light.png'))
-        self.selected_led = tk.StringVar()
-        self.selected_led.set('off')
 
         self.create_widgets()
 
@@ -34,9 +31,12 @@ class Application(tk.Frame):
 
     def textToMorseConvert(self):
         stringLike = self.stringToMorse.get()
+        if len(stringLike) > 12:
+            print("String too long. Please enter a string under 12 characters.")
+            return
         morseCode = String_To_Morse.ConvertToMorse(stringLike)
         if DEBUG: print(morseCode)
-        Morse_To_Blink.ConvertToBlink(morseCode, 0.5)
+        Morse_To_Blink.ConvertToBlink(morseCode, 0.125)
         
 
     def create_widgets(self):
